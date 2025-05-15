@@ -14,6 +14,10 @@ public class ServicioMotoImpl implements MotoService {
 
     private final MotoRepositorio servicioMotoRepositorio;
 
+    public ServicioMotoImpl(MotoRepositorio servicioMotoRepositorio) {
+        this.servicioMotoRepositorio = servicioMotoRepositorio;
+    }
+
     // @Autowired -> No es recomendable prosionalmente dado que no facilita pruebas mocks
     // ServicioMotoRepositorio servicioMotoRepositorio2;
 
@@ -22,14 +26,9 @@ public class ServicioMotoImpl implements MotoService {
         return servicioMotoRepositorio.save(servicioMoto);
     }
 
-    public ServicioMotoImpl(MotoRepositorio servicioMotoRepositorio) {
-        this.servicioMotoRepositorio = servicioMotoRepositorio;
-    }
-
     @Override
     public Moto findServicioMoto(Long id) throws Exception{
-        return servicioMotoRepositorio.findById(id).orElseThrow(
-            () -> new Exception("No se encontro el id"));
+        return servicioMotoRepositorio.findById(id).orElseThrow(() -> new Exception("No se encontro el id: " + id));
     }
 
     @Override
