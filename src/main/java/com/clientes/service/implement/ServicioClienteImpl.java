@@ -28,8 +28,7 @@ public class ServicioClienteImpl implements ClienteService {
 
     @Override
     public Cliente findServicioCliente(Long id) throws Exception{
-        return clienteRepositorio.findById(id).orElseThrow(
-            () -> new Exception("No se encontro el id"));
+        return clienteRepositorio.findById(id).orElseThrow(() -> new Exception("No se encontró el id: " + id));
     }
 
     @Override
