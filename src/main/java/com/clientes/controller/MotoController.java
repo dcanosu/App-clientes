@@ -28,7 +28,7 @@ public class MotoController {
 
     // Crear una moto (POST)
     @PostMapping
-    public ResponseEntity<Moto> insertarServicioMoto(@RequestBody Moto moto){
+    public ResponseEntity<Moto> crearMoto(@RequestBody Moto moto){
         Moto nuevo = motoService.createMoto(moto);
         return new ResponseEntity<>(nuevo, HttpStatus.CREATED);
     }
