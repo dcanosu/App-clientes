@@ -29,7 +29,7 @@ public class MotoController {
     // Insertar (POST)
     @PostMapping
     public ResponseEntity<Moto> insertarServicioMoto(@RequestBody Moto servicioMoto){
-        Moto nuevo = servicioMotoService.insertServicioMoto(servicioMoto);
+        Moto nuevo = servicioMotoService.insertMoto(servicioMoto);
         return new ResponseEntity<>(nuevo, HttpStatus.CREATED);
     }
 
@@ -37,7 +37,7 @@ public class MotoController {
     @GetMapping("/{id}")
     public ResponseEntity<Moto> obtenerServicioMoto(@PathVariable Long id){
         try{
-            Moto servicio = servicioMotoService.findServicioMoto(id);
+            Moto servicio = servicioMotoService.findMoto(id);
             return ResponseEntity.ok(servicio);
         }catch (Exception e){
             return ResponseEntity.notFound().build();
@@ -47,7 +47,7 @@ public class MotoController {
     // Listar todos (GET)
     @GetMapping
     public ResponseEntity<List<Moto>> listarServicioMoto(){
-        return ResponseEntity.ok(servicioMotoService.listServicioMoto());
+        return ResponseEntity.ok(servicioMotoService.listMoto());
     }
 
     // Actualizar (PUT)
@@ -55,7 +55,7 @@ public class MotoController {
     public ResponseEntity<Moto> actualizarServicioMoto(@PathVariable Long id, @RequestBody Moto servicioMoto) {
         try {
             servicioMoto.setId(id); // Asegura que el ID coincida
-            Moto actualizado = servicioMotoService.updateServicioMoto(servicioMoto);
+            Moto actualizado = servicioMotoService.updateMoto(servicioMoto);
             return ResponseEntity.ok(actualizado);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
@@ -66,7 +66,7 @@ public class MotoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarServicioMoto(@PathVariable Long id) {
         try {
-            servicioMotoService.deleteServicioMoto(id);
+            servicioMotoService.deleteMoto(id);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
@@ -75,6 +75,6 @@ public class MotoController {
 
     @GetMapping("/todos")
     public List<Moto> getAllServicios(){
-        return servicioMotoService.getAllServicioMotos();
+        return servicioMotoService.getAllMotos();
     }
 }

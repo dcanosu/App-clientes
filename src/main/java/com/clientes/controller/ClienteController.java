@@ -29,7 +29,7 @@ public class ClienteController {
     // Insertar (POST)
     @PostMapping
     public ResponseEntity<Cliente> insertarServicioCliente(@RequestBody Cliente servicioCliente){
-        Cliente nuevo = clienteService.insertServicioCliente(servicioCliente);
+        Cliente nuevo = clienteService.insertCliente(servicioCliente);
         return new ResponseEntity<>(nuevo, HttpStatus.CREATED);
     }
 
@@ -37,7 +37,7 @@ public class ClienteController {
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> obtenerServicioCliente(@PathVariable Long id){
         try{
-            Cliente servicio = clienteService.findServicioCliente(id);
+            Cliente servicio = clienteService.findCliente(id);
             return ResponseEntity.ok(servicio);
         }catch (Exception e){
             return ResponseEntity.notFound().build();
@@ -47,7 +47,7 @@ public class ClienteController {
     // Listar todos (GET)
     @GetMapping
     public ResponseEntity<List<Cliente>> listarServicioCliente(){
-        return ResponseEntity.ok(clienteService.listServicioCliente());
+        return ResponseEntity.ok(clienteService.listCliente());
     }
 
     // Actualizar (PUT)
@@ -55,7 +55,7 @@ public class ClienteController {
     public ResponseEntity<Cliente> actualizarServicioCliente(@PathVariable Long id, @RequestBody Cliente servicioCliente) {
         try {
             servicioCliente.setId(id); // Asegura que el ID coincida
-            Cliente actualizado = clienteService.updateServicioCliente(servicioCliente);
+            Cliente actualizado = clienteService.updateCliente(servicioCliente);
             return ResponseEntity.ok(actualizado);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
@@ -66,7 +66,7 @@ public class ClienteController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarServicioCliente(@PathVariable Long id) {
         try {
-            clienteService.deleteServicioCliente(id);
+            clienteService.deleteCliente(id);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
@@ -75,6 +75,6 @@ public class ClienteController {
 
     @GetMapping("/todos")
     public List<Cliente> getAllServicios(){
-        return clienteService.getAllServicioClientes();
+        return clienteService.getAllClientes();
     }
 }

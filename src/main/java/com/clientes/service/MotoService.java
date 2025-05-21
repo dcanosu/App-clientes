@@ -6,15 +6,15 @@ import com.clientes.model.entities.Moto;
 
 public interface MotoService {
     
-    public Moto insertServicioMoto(Moto servicioMoto);
+    public Moto insertMoto(Moto servicioMoto);
 
-    public Moto findServicioMoto(Long id) throws Exception;
+    public Moto findMoto(Long id) throws Exception;
 
-    public List<Moto> listServicioMoto();
+    public List<Moto> listMoto();
 
-    public Moto updateServicioMoto(Moto servicioMoto) throws Exception;
+    public Moto updateMoto(Moto servicioMoto) throws Exception;
 
-    public void deleteServicioMoto(Long id) throws Exception;
+    public void deleteMoto(Long id) throws Exception;
 
-    public List<Moto>getAllServicioMotos();
+    public List<Moto>getAllMotos();
 }
