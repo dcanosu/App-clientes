@@ -14,9 +14,6 @@ public class ServicioClienteImpl implements ClienteService {
 
     private final ClienteRepositorio clienteRepositorio;
 
-    // @Autowired -> No es recomendable prosionalmente dado que no facilita pruebas mocks
-    // clienteRepositorio clienteRepositorio2;
-
     @Override
     public Cliente insertServicioCliente(Cliente servicioCliente){
         return clienteRepositorio.save(servicioCliente);
@@ -44,12 +41,7 @@ public class ServicioClienteImpl implements ClienteService {
         return clienteRepositorio.save(servicioCliente);
     }
 
-    // @Override
-    // public ServicioCliente updateServicioCliente(ServicioCliente servicioCliente) throws Exception{
-    //     findServicioCliente(servicioCliente.getId());
-    //     return clienteRepositorio.save(servicioCliente);
-    // }
-
+    @Override
     public void deleteServicioCliente(Long id) throws Exception{
         findServicioCliente(id); // lanza excepción si no existe
         clienteRepositorio.deleteById(id);
