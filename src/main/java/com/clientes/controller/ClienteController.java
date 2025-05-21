@@ -26,43 +26,59 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    // Insertar (POST)
+    // Crear un cliente (POST)
     @PostMapping
-    public ResponseEntity<Cliente> insertarServicioCliente(@RequestBody Cliente servicioCliente){
-        Cliente nuevo = clienteService.insertCliente(servicioCliente);
+    public ResponseEntity<Cliente> insertarServicioCliente(@RequestBody Cliente cliente){
+        Cliente nuevo = clienteService.createCliente(cliente);
         return new ResponseEntity<>(nuevo, HttpStatus.CREATED);
     }
 
-    // Buscar por ID (GET)
+    // Buscar un cliente por ID (GET)
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> obtenerServicioCliente(@PathVariable Long id){
+    public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Long id){
         try{
-            Cliente servicio = clienteService.findCliente(id);
-            return ResponseEntity.ok(servicio);
+            Cliente cliente = clienteService.getClienteById(id);
+            return ResponseEntity.ok(cliente);
         }catch (Exception e){
             return ResponseEntity.notFound().build();
         }
     }
 
-    // Listar todos (GET)
+    // Listar todos los clientes (GET)
     @GetMapping
-    public ResponseEntity<List<Cliente>> listarServicioCliente(){
-        return ResponseEntity.ok(clienteService.listCliente());
+    public ResponseEntity<List<Cliente>> listarClientes(){
+        return ResponseEntity.ok(clienteService.getAllClientes());
     }
 
-    // Actualizar (PUT)
+    // Listar todos los clientes personalizado (GET)
+    @GetMapping("/todos")
+    public List<Cliente> listarClientesPersonalizado(){
+        return clienteService.getCustomClientes();
+    }
+
+    // Actualizar cliente (PUT)
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> actualizarServicioCliente(@PathVariable Long id, @RequestBody Cliente servicioCliente) {
+    public ResponseEntity<Cliente> actualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
         try {
-            servicioCliente.setId(id); // Asegura que el ID coincida
-            Cliente actualizado = clienteService.updateCliente(servicioCliente);
-            return ResponseEntity.ok(actualizado);
+            cliente.setId(id); // Asegura que el ID coincida
+            Cliente clienteActualizado = clienteService.updateCliente(cliente);
+            return ResponseEntity.ok(clienteActualizado);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
 
-    // Eliminar (DELETE)
+    @PutMapping("/actualizar")
+    public ResponseEntity<Void> actualizarClientePersonalizado(@RequestBody Cliente cliente) {
+        try {
+            clienteService.updateCliente(cliente);
+            return ResponseEntity.noContent().build(); // 204 No Content
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build(); // 404 si no la encuentra
+        }
+    }
+
+    // Eliminar un cliente (DELETE)
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarServicioCliente(@PathVariable Long id) {
         try {
@@ -71,10 +87,5 @@ public class ClienteController {
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
-    }
-
-    @GetMapping("/todos")
-    public List<Cliente> getAllServicios(){
-        return clienteService.getAllClientes();
     }
 }
