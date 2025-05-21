@@ -28,7 +28,7 @@ public class ClienteController {
 
     // Crear un cliente (POST)
     @PostMapping
-    public ResponseEntity<Cliente> insertarServicioCliente(@RequestBody Cliente cliente){
+    public ResponseEntity<Cliente> crearCliente(@RequestBody Cliente cliente){
         Cliente nuevo = clienteService.createCliente(cliente);
         return new ResponseEntity<>(nuevo, HttpStatus.CREATED);
     }
@@ -80,7 +80,7 @@ public class ClienteController {
 
     // Eliminar un cliente (DELETE)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarServicioCliente(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminarCliente(@PathVariable Long id) {
         try {
             clienteService.deleteCliente(id);
             return ResponseEntity.noContent().build();
