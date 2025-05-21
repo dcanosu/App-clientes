@@ -6,15 +6,17 @@ import com.clientes.model.entities.Cliente;
 
 public interface ClienteService {
     
-    public Cliente insertCliente(Cliente servicioCliente);
+    Cliente createCliente(Cliente cliente);
 
-    public Cliente findCliente(Long id) throws Exception;
+    Cliente getClienteById(Long id) throws Exception;
 
-    public List<Cliente> listCliente();
+    List<Cliente> getAllClientes();
 
-    public Cliente updateCliente(Cliente servicioCliente) throws Exception;
+    List<Cliente>getCustomClientes();
 
-    public void deleteCliente(Long id) throws Exception;
+    Cliente updateCliente(Cliente cliente) throws Exception;
 
-    public List<Cliente>getAllClientes();
+    void updateCustomCliente(Cliente clinteData) throws Exception;
+
+    void deleteCliente(Long id) throws Exception;
 }

@@ -20,61 +20,72 @@ import com.clientes.service.MotoService;
 @RequestMapping("/api/motos")
 public class MotoController {
 
-    private final MotoService servicioMotoService;
+    private final MotoService motoService;
 
-    public MotoController(MotoService servicioMotoService) {
-        this.servicioMotoService = servicioMotoService;
+    public MotoController(MotoService motoService) {
+        this.motoService = motoService;
     }
 
-    // Insertar (POST)
+    // Crear una moto (POST)
     @PostMapping
-    public ResponseEntity<Moto> insertarServicioMoto(@RequestBody Moto servicioMoto){
-        Moto nuevo = servicioMotoService.insertMoto(servicioMoto);
+    public ResponseEntity<Moto> insertarServicioMoto(@RequestBody Moto moto){
+        Moto nuevo = motoService.createMoto(moto);
         return new ResponseEntity<>(nuevo, HttpStatus.CREATED);
     }
 
-    // Buscar por ID (GET)
+    // Buscar una moto por ID (GET)
     @GetMapping("/{id}")
-    public ResponseEntity<Moto> obtenerServicioMoto(@PathVariable Long id){
+    public ResponseEntity<Moto> obtenerMotoPorId(@PathVariable Long id){
         try{
-            Moto servicio = servicioMotoService.findMoto(id);
-            return ResponseEntity.ok(servicio);
+            Moto moto = motoService.getMotoById(id);
+            return ResponseEntity.ok(moto);
         }catch (Exception e){
             return ResponseEntity.notFound().build();
         }
     }
 
-    // Listar todos (GET)
+    // Listar todas las motos (GET)
     @GetMapping
-    public ResponseEntity<List<Moto>> listarServicioMoto(){
-        return ResponseEntity.ok(servicioMotoService.listMoto());
+    public ResponseEntity<List<Moto>> listarMotos(){
+        return ResponseEntity.ok(motoService.getAllMotos());
     }
 
-    // Actualizar (PUT)
+    // Listar todas las motos personalizado (GET)
+    @GetMapping("/todos")
+    public List<Moto> listarMotosPersonalizado(){
+        return motoService.getCustomMotos();
+    }
+
+    // Actualizar una moto (PUT)
     @PutMapping("/{id}")
-    public ResponseEntity<Moto> actualizarServicioMoto(@PathVariable Long id, @RequestBody Moto servicioMoto) {
+    public ResponseEntity<Moto> actualizarMoto(@PathVariable Long id, @RequestBody Moto moto) {
         try {
-            servicioMoto.setId(id); // Asegura que el ID coincida
-            Moto actualizado = servicioMotoService.updateMoto(servicioMoto);
-            return ResponseEntity.ok(actualizado);
+            moto.setId(id); // Asegura que el ID coincida
+            Moto motoActualizada = motoService.updateMoto(moto);
+            return ResponseEntity.ok(motoActualizada);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
 
-    // Eliminar (DELETE)
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarServicioMoto(@PathVariable Long id) {
+    @PutMapping("/actualizar")
+    public ResponseEntity<Void> actualizarMotoPersonalizado(@RequestBody Moto moto) {
         try {
-            servicioMotoService.deleteMoto(id);
+            motoService.updateMoto(moto);
+            return ResponseEntity.noContent().build(); // 204 No Content
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build(); // 404 si no la encuentra
+        }
+    }
+
+    // Eliminar una moto (DELETE)
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarMoto(@PathVariable Long id) {
+        try {
+            motoService.deleteMotoById(id);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
-    }
-
-    @GetMapping("/todos")
-    public List<Moto> getAllServicios(){
-        return servicioMotoService.getAllMotos();
     }
 }

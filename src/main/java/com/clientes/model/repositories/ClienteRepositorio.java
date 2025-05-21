@@ -10,6 +10,7 @@ import com.clientes.model.entities.Cliente;
 
 @Repository
 public interface ClienteRepositorio extends JpaRepository<Cliente, Long>{
+    
     @Query(value = "SELECT * FROM clientes", nativeQuery = true)
     List<Cliente> getAllClientes();
 }
