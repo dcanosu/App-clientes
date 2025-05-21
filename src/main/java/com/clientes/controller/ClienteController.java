@@ -16,12 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.clientes.model.entities.Cliente;
 import com.clientes.service.ClienteService;
 
-
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
     
-
     private final ClienteService clienteService;
 
     public ClienteController(ClienteService clienteService) {
